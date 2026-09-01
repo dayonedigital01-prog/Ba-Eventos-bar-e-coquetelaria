@@ -187,9 +187,15 @@ const App: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting || isSuccess) return;
     setIsSubmitting(true);
 
-    // Simulação de envio (sem IA conforme solicitado)
+    // Disparo do evento padrão Lead do Meta Pixel (após validação nativa e envio bem-sucedido)
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Lead');
+    }
+
+    // Processamento do envio
     setTimeout(() => {
       setAiResponse("Recebemos seu pedido com sucesso! Nossa equipe já está polindo os cristais para o seu grande dia. Clique no botão abaixo para finalizarmos os detalhes via WhatsApp.");
       setIsSuccess(true);
@@ -404,6 +410,16 @@ const App: React.FC = () => {
                       onChange={handleInputChange}
                     />
                   </div>
+                </div>
+
+                {/* Informação de Investimento */}
+                <div className="text-center pt-2 pb-1 space-y-1">
+                  <p className="text-sm font-semibold text-amber-500/90">
+                    Serviço de bar a partir de R$ 1.500.
+                  </p>
+                  <p className="text-xs text-stone-400 font-light leading-relaxed">
+                    O investimento varia conforme número de convidados, local, duração e menu escolhido.
+                  </p>
                 </div>
 
                 <button 
