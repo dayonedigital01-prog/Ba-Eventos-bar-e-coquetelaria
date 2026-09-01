@@ -413,12 +413,9 @@ const App: React.FC = () => {
                 </div>
 
                 {/* Informação de Investimento */}
-                <div className="text-center pt-2 pb-1 space-y-1">
-                  <p className="text-sm font-semibold text-amber-500/90">
-                    Serviço de bar a partir de R$ 1.500.
-                  </p>
-                  <p className="text-xs text-stone-400 font-light leading-relaxed">
-                    O investimento varia conforme número de convidados, local, duração e menu escolhido.
+                <div className="text-center pt-2 pb-1 px-4">
+                  <p className="text-xs sm:text-sm text-stone-400 font-light leading-relaxed">
+                    Experiência de bar completa para o seu evento com pacotes <span className="font-semibold text-amber-500/90">a partir de R$ 1.500</span> (variando conforme cardápio, duração e quantidade de convidados).
                   </p>
                 </div>
 
