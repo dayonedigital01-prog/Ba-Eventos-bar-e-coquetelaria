@@ -13,8 +13,6 @@ import {
 } from 'lucide-react';
 import { LeadData } from './types';
 
-const WA_NUMBER = '5544998633217';
-const waLink = (text: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
 
 // Componentes Reutilizáveis
 const ProcessStep: React.FC<{ icon: React.ReactNode; title: string; text: string; number: string }> = ({ icon, title, text, number }) => (
@@ -38,9 +36,11 @@ const MenuCard: React.FC<{
   descriptions?: Record<string, string>;
   note?: string;
   cta: string;
-  message: string;
+  selectedLabel?: string;
+  onSelect: () => void;
+  selected?: boolean;
   highlight?: boolean;
-}> = ({ icon, title, text, items, descriptions, note, cta, message, highlight }) => (
+}> = ({ icon, title, text, items, descriptions, note, cta, selectedLabel, onSelect, selected, highlight }) => (
   <div className={`flex flex-col justify-between rounded-[2.5rem] p-8 transition-all duration-500 h-full ${highlight ? 'bg-stone-900/60 border-2 border-amber-500 shadow-[0_0_50px_rgba(245,158,11,0.1)]' : 'bg-stone-900/40 border border-stone-800/80 hover:border-amber-500/30'}`}>
     <div>
       <div className="mb-6">
@@ -66,14 +66,14 @@ const MenuCard: React.FC<{
     </div>
     <div className="mt-auto space-y-4">
       {note && <p className="text-[9px] text-amber-500/70 uppercase tracking-[0.2em] font-bold text-center">{note}</p>}
-      <a
-        href={waLink(message)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`block text-center py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300 ${highlight ? 'bg-amber-500 hover:bg-amber-600 text-stone-950' : 'bg-stone-800 hover:bg-white text-white hover:text-stone-950'}`}
+      <button
+        type="button"
+        onClick={onSelect}
+        aria-pressed={selected}
+        className={`block w-full text-center py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300 ${selected ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : highlight ? 'bg-amber-500 hover:bg-amber-600 text-stone-950' : 'bg-stone-800 hover:bg-white text-white hover:text-stone-950'}`}
       >
-        {cta}
-      </a>
+        {selected ? (selectedLabel || 'Selecionado ✓') : cta}
+      </button>
     </div>
   </div>
 );
@@ -224,11 +224,27 @@ const App: React.FC = () => {
     packageSelection: ''
   });
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  // Menu escolhido: um menu principal e, opcionalmente, o Signature como adicional.
+  const [menuSelection, setMenuSelection] = useState<string[]>([]);
 
   const formRef = useRef<HTMLDivElement>(null);
 
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const selectMenu = (title: string) => {
+    setMenuSelection(prev => {
+      if (title === 'Signature Selection') {
+        return prev.includes(title) ? prev.filter(t => t !== title) : [...prev, title];
+      }
+      return [title, ...prev.filter(t => t === 'Signature Selection')];
+    });
+    scrollToForm();
+  };
+
+  const removeMenu = (title: string) => {
+    setMenuSelection(prev => prev.filter(t => t !== title));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -249,7 +265,8 @@ const App: React.FC = () => {
         whatsapp: formData.whatsapp,
         eventType: formData.eventType,
         guests: formData.guests,
-        date: formData.date
+        date: formData.date,
+        menu: menuSelection.join(' + ')
       }));
     } catch (err) {
       // Sem armazenamento disponível, a página de obrigado mostra a versão genérica.
@@ -336,6 +353,20 @@ const App: React.FC = () => {
                 <h2 className="text-4xl font-bold text-white mb-3 uppercase tracking-tighter">Peça seu orçamento</h2>
                 <p className="text-stone-400 font-medium">Preencha os dados e continue pelo WhatsApp.</p>
               </div>
+
+              {menuSelection.length > 0 && (
+                <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-4 space-y-3">
+                  <p className="text-xs uppercase tracking-widest text-amber-500 font-bold">Menu escolhido</p>
+                  <ul className="flex flex-wrap gap-2">
+                    {menuSelection.map(t => (
+                      <li key={t} className="flex items-center gap-2 pl-4 pr-2 py-1.5 rounded-full bg-stone-800 border border-stone-500 text-sm text-stone-100">
+                        {t}
+                        <button type="button" onClick={() => removeMenu(t)} aria-label={`Remover ${t}`} className="w-6 h-6 rounded-full text-stone-400 hover:text-white hover:bg-stone-700">×</button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               <div className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -494,7 +525,8 @@ const App: React.FC = () => {
               descriptions={ESSENCIAL_DESCRIPTIONS}
               note="Versão com água com gás disponível"
               cta="Quero esse menu"
-              message="Olá! Quero um orçamento com o menu Essencial para o meu evento."
+              onSelect={() => selectMenu("Essencial")}
+              selected={menuSelection.includes("Essencial")}
             />
             <MenuCard
               icon={<Sparkles size={20} />}
@@ -504,7 +536,8 @@ const App: React.FC = () => {
               descriptions={DESTAQUE_DESCRIPTIONS}
               note="Recomendado para casamentos"
               cta="Quero esse menu"
-              message="Olá! Quero um orçamento com o menu Destaque para o meu evento."
+              onSelect={() => selectMenu("Destaque")}
+              selected={menuSelection.includes("Destaque")}
               highlight
             />
             <MenuCard
@@ -515,7 +548,9 @@ const App: React.FC = () => {
               descriptions={SIGNATURE_DESCRIPTIONS}
               note="Adicional"
               cta="Quero adicionar"
-              message="Olá! Tenho interesse na Signature Selection como adicional para o meu evento."
+              onSelect={() => selectMenu("Signature Selection")}
+              selected={menuSelection.includes("Signature Selection")}
+              selectedLabel="Adicionado ✓"
             />
             <MenuCard
               icon={<GlassWater size={20} />}
@@ -525,7 +560,8 @@ const App: React.FC = () => {
               descriptions={SEM_ALCOOL_DESCRIPTIONS}
               note="Opção para convidados sem álcool"
               cta="Quero esse menu"
-              message="Olá! Quero um orçamento com drinks sem álcool para o meu evento."
+              onSelect={() => selectMenu("Sem Álcool")}
+              selected={menuSelection.includes("Sem Álcool")}
             />
           </div>
         </div>
