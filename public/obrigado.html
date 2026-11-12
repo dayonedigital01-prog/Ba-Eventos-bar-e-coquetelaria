@@ -73,6 +73,7 @@
       <dl>
         <div><dt>Nome</dt><dd id="v-nome">—</dd></div>
         <div><dt>Tipo de evento</dt><dd id="v-tipo">—</dd></div>
+        <div><dt>Cidade</dt><dd id="v-cidade">—</dd></div>
         <div><dt>Menu</dt><dd id="v-menu">a definir</dd></div>
         <div><dt>Convidados</dt><dd id="v-convidados">—</dd></div>
         <div><dt>Data prevista</dt><dd id="v-data">a definir</dd></div>
@@ -108,6 +109,7 @@
         set('v-nome', lead.name);
         set('v-tipo', lead.eventType);
         set('v-menu', lead.menu);
+        set('v-cidade', lead.city);
         set('v-convidados', lead.guests ? String(lead.guests) : '');
         set('v-data', lead.date);
         set('v-contato', lead.whatsapp);
@@ -115,6 +117,7 @@
         var message = 'Olá! Quero um orçamento para o meu evento.\n' +
           '- Nome: ' + (lead.name || '') + '\n' +
           '- Tipo de evento: ' + (lead.eventType || '') + '\n' +
+          '- Cidade: ' + (lead.city || '') + '\n' +
           '- Menu: ' + (lead.menu || 'a definir') + '\n' +
           '- Convidados: ' + (lead.guests || '') + '\n' +
           '- Data prevista: ' + (lead.date || 'a definir') + '\n' +

@@ -266,6 +266,7 @@ const App: React.FC = () => {
         eventType: formData.eventType,
         guests: formData.guests,
         date: formData.date,
+        city: formData.location,
         menu: menuSelection.join(' + ')
       }));
     } catch (err) {
@@ -424,6 +425,18 @@ const App: React.FC = () => {
                     onChange={handleInputChange}
                   />
                 </div>
+
+                <input
+                  required
+                  type="text"
+                  name="location"
+                  aria-label="Cidade do evento"
+                  placeholder="Cidade do evento (ex.: Maringá)"
+                  autoComplete="address-level2"
+                  className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                />
 
                 <div className="space-y-2">
                   <label htmlFor="data-evento" className="block text-sm text-stone-300 px-2">
