@@ -803,7 +803,7 @@ const App: React.FC = () => {
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-20 pt-24 border-t border-stone-900">
             <div className="space-y-8 text-center sm:text-left">
               <h4 className="text-white font-bold text-lg uppercase tracking-widest">Localização</h4>
-              <p className="text-stone-400 leading-relaxed text-sm">Base Central: Maringá - PR<br />Atendimento exclusivo em todo o Norte Paranaense.</p>
+              <p className="text-stone-400 leading-relaxed text-sm">Base Central: Maringá - PR<br />Atendimento em Maringá e região.</p>
             </div>
             <div className="space-y-8 text-center sm:text-left">
               <h4 className="text-white font-bold text-lg uppercase tracking-widest">Datas & Orçamentos</h4>
