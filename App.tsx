@@ -288,7 +288,7 @@ const App: React.FC = () => {
         <div className="absolute inset-0 z-0">
           <img
             src="/estrutura/bar-frente.jpg"
-            className="w-full h-full object-cover opacity-30"
+            className="absolute top-0 inset-x-0 w-full h-[460px] sm:h-full object-cover object-[50%_62%] opacity-40 [mask-image:linear-gradient(to_bottom,black_55%,transparent)] sm:[mask-image:none]"
             alt=""
             referrerPolicy="no-referrer"
           />
@@ -394,15 +394,21 @@ const App: React.FC = () => {
                   />
                 </div>
 
-                <input
-                  type="date"
-                  name="date"
-                  aria-label="Data prevista"
-                  min={new Date().toISOString().split('T')[0]}
-                  className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all"
-                  value={formData.date}
-                  onChange={handleInputChange}
-                />
+                <div className="space-y-2">
+                  <label htmlFor="data-evento" className="block text-sm text-stone-300 px-2">
+                    Data do seu evento <span className="text-stone-500">(se ainda não souber, escolha uma data aproximada)</span>
+                  </label>
+                  <input
+                    id="data-evento"
+                    type="date"
+                    lang="pt-BR"
+                    name="date"
+                    min={new Date().toISOString().split('T')[0]}
+                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all"
+                    value={formData.date}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
 
               <div className="text-center pt-2 pb-1 px-4">
