@@ -179,13 +179,37 @@ const DRINKS_DESTAQUE = ['Caipirinha / Caipiroska com até 3 frutas', 'Gin & Tô
 const SIGNATURE = ['Negroni', 'Aperol Spritz', 'Penicillin', 'Old Fashioned', 'Manhattan', 'Fitzgerald', 'Whisky Sour', 'Rabo de Galo'];
 const SIGNATURE_DESCRIPTIONS: Record<string, string> = {
   'Negroni': 'Gin, Campari e vermute rosso, com casca de laranja.',
-  'Aperol Spritz': 'Aperol, espumante e água com gás, leve e refrescante.',
-  'Penicillin': 'Whisky, mel, gengibre e limão.',
+  'Aperol Spritz': 'Aperol, espumante e água com gás, com uma fatia de laranja.',
+  'Penicillin': 'Whisky, mel, gengibre e limão, com um toque de whisky defumado.',
   'Old Fashioned': 'Bourbon, açúcar e angostura, com casca de laranja.',
-  'Manhattan': 'Whisky de centeio, vermute e angostura.',
+  'Manhattan': 'Whisky de centeio, vermute doce e angostura.',
   'Fitzgerald': 'Gin, limão, açúcar e angostura.',
-  'Whisky Sour': 'Whisky, limão e açúcar, com uma espuma sedosa.',
-  'Rabo de Galo': 'Cachaça, vermute e angostura, um clássico brasileiro.'
+  'Whisky Sour': 'Whisky, limão e açúcar, com espuma.',
+  'Rabo de Galo': 'Cachaça, vermute e angostura, com casca de laranja.'
+};
+const ESSENCIAL_DESCRIPTIONS: Record<string, string> = {
+  'Caipirinha / Caipiroska': 'Cachaça (ou vodca, na caiproska), limão e açúcar, sobre gelo picado.',
+  'Saquerita': 'Saquê, limão e açúcar, no estilo da caipirinha.',
+  'Mojito': 'Rum, hortelã, limão, açúcar e água com gás.',
+  'Piña Colada': 'Rum, suco de abacaxi e leite de coco, batidos com gelo.',
+  'Brisa do Cerrado': 'Destilado, mel e pequi, com abacaxi e limão.',
+  'Maracujá Tropical': 'Polpa de maracujá, limão e açúcar, com gelo.',
+  'Soda Italiana': 'Xarope de frutas, água com gás e gelo.'
+};
+const DESTAQUE_DESCRIPTIONS: Record<string, string> = {
+  'Caipirinha / Caipiroska com até 3 frutas': 'Cachaça, limão e açúcar, com até 3 frutas à escolha.',
+  'Gin & Tônica': 'Gin, água tônica, gelo e raspas de limão.',
+  'Gin com chá de frutas vermelhas': 'Gin, chá de frutas vermelhas, limão e gelo.',
+  'Sex on the Beach': 'Vodca, licor de pêssego, cranberry e suco de laranja.',
+  'Cosmopolitan': 'Vodca, licor de laranja, cranberry e limão.',
+  'Moscow Mule artesanal': 'Vodca, limão e ginger beer, servido na caneca de cobre.'
+};
+const SEM_ALCOOL_DESCRIPTIONS: Record<string, string> = {
+  'Sex on the Beach': 'Suco de pêssego, cranberry e laranja, com gelo.',
+  'Mojito': 'Hortelã, limão, açúcar e água com gás.',
+  'Soda Italiana': 'Xarope de frutas, água com gás e gelo.',
+  'Moscow Mule': 'Ginger beer, limão e gelo, servido na caneca de cobre.',
+  'Piña Colada': 'Suco de abacaxi e leite de coco, batidos com gelo.'
 };
 const SEM_ALCOOL = ['Sex on the Beach', 'Mojito', 'Soda Italiana', 'Moscow Mule', 'Piña Colada'];
 
@@ -263,7 +287,7 @@ const App: React.FC = () => {
       <section className="relative min-h-screen flex items-center pt-24 pb-20">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=85&w=1600"
+            src="/estrutura/bar-frente.jpg"
             className="w-full h-full object-cover opacity-30"
             alt=""
             referrerPolicy="no-referrer"
@@ -448,7 +472,7 @@ const App: React.FC = () => {
           <div className="text-center mb-24 space-y-4">
             <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter uppercase">
               Escolha o menu <br />
-              <span className="text-amber-500 italic">ideal para o seu evento</span>
+              <span className="text-amber-500 italic">para o seu evento</span>
             </h2>
             <p className="text-stone-400 text-lg md:text-xl max-w-3xl mx-auto font-light leading-relaxed">
               Experiência completa a partir de R$ 1.600, com equipe, estrutura, insumos e contrato incluso.
@@ -459,17 +483,19 @@ const App: React.FC = () => {
             <MenuCard
               icon={<GlassWater size={20} />}
               title="Essencial"
-              text="Clássicos e tropicais, para eventos descontraídos."
+              text="Clássicos e tropicais, para um evento mais informal."
               items={DRINKS_ESSENCIAL}
-              note="Versão Fresh com gás disponível"
+              descriptions={ESSENCIAL_DESCRIPTIONS}
+              note="Versão com água com gás disponível"
               cta="Quero esse menu"
               message="Olá! Quero um orçamento com o menu Essencial para o meu evento."
             />
             <MenuCard
               icon={<Sparkles size={20} />}
               title="Destaque"
-              text="Drinks modernos e refrescantes, com apresentação diferenciada."
+              text="Drinks modernos, com sabores frescos e apresentação mais elaborada."
               items={DRINKS_DESTAQUE}
+              descriptions={DESTAQUE_DESCRIPTIONS}
               note="Recomendado para casamentos"
               cta="Quero esse menu"
               message="Olá! Quero um orçamento com o menu Destaque para o meu evento."
@@ -478,7 +504,7 @@ const App: React.FC = () => {
             <MenuCard
               icon={<Sparkles size={20} />}
               title="Signature Selection"
-              text="Clássicos refinados, adicionados ao seu menu principal."
+              text="Clássicos de coquetelaria, como adicional ao seu menu."
               items={SIGNATURE}
               descriptions={SIGNATURE_DESCRIPTIONS}
               note="Adicional"
@@ -488,9 +514,10 @@ const App: React.FC = () => {
             <MenuCard
               icon={<GlassWater size={20} />}
               title="Sem Álcool"
-              text="Drinks leves para todos os convidados brindarem."
+              text="Drinks sem álcool para que todos brindem juntos."
               items={SEM_ALCOOL}
-              note="Para incluir todos os convidados"
+              descriptions={SEM_ALCOOL_DESCRIPTIONS}
+              note="Opção para convidados sem álcool"
               cta="Quero esse menu"
               message="Olá! Quero um orçamento com drinks sem álcool para o meu evento."
             />
@@ -503,10 +530,10 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tighter uppercase">
-              Sua única tarefa é <span className="text-amber-500 italic">brindar</span>
+              Você aproveita a festa. <span className="text-amber-500 italic">O bar é com a gente.</span>
             </h2>
             <p className="text-stone-400 max-w-2xl mx-auto font-light text-lg leading-relaxed">
-              Cuidamos de toda a parte operacional para que você aproveite o evento com tranquilidade.
+              Levamos a estrutura, preparamos os drinks e cuidamos do serviço do início ao fim.
             </p>
           </div>
 
@@ -515,7 +542,7 @@ const App: React.FC = () => {
               number="01"
               icon={<Sparkles size={32} />}
               title="Curadoria"
-              text="Definimos juntos o menu ideal, de acordo com o perfil dos seus convidados e o estilo do evento."
+              text="Escolhemos o menu juntos, conforme o perfil dos convidados e o estilo da festa."
             />
             <ProcessStep
               number="02"
@@ -527,13 +554,13 @@ const App: React.FC = () => {
               number="03"
               icon={<Settings size={32} />}
               title="Insumos frescos"
-              text="Trabalhamos com frutas selecionadas e ingredientes frescos em cada drink."
+              text="Preparamos cada drink na hora, com frutas e ingredientes frescos."
             />
             <ProcessStep
               number="04"
               icon={<CheckCircle2 size={32} />}
               title="Atendimento"
-              text="Equipe no bar por até 5 horas, do início ao fim do serviço, com contrato incluso."
+              text="Equipe no bar por até 5 horas, com contrato incluso."
             />
           </div>
         </div>
@@ -563,8 +590,8 @@ const App: React.FC = () => {
               <p className="text-stone-400 text-sm">Pelo formulário ou direto no WhatsApp: 44 99863-3217.</p>
             </div>
             <div className="space-y-8 text-center sm:text-left">
-              <h4 className="text-white font-bold text-lg uppercase tracking-widest text-amber-500">A nossa essência</h4>
-              <p className="text-stone-400 text-sm italic leading-relaxed">Criamos o cenário para que a sua única tarefa seja celebrar.</p>
+              <h4 className="text-white font-bold text-lg uppercase tracking-widest text-amber-500">Sobre o bar</h4>
+              <p className="text-stone-400 text-sm leading-relaxed">Bar e coquetelaria para eventos sociais em Maringá e região.</p>
             </div>
           </div>
 
