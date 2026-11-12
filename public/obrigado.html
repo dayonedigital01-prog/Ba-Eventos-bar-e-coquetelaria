@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>BA Eventos - Pedido recebido</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1053262229238538');
+  fbq('track', 'PageView');
+  </script>
+  <!-- End Meta Pixel Code -->
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; background: #0c0a09; color: #f5f5f4;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      padding: max(24px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+      display: flex; align-items: center; justify-content: center;
+    }
+    main { width: 100%; max-width: 560px; text-align: center; }
+    .brand { font-family: "Playfair Display", Georgia, serif; color: #f59e0b; letter-spacing: .12em; text-transform: uppercase; font-size: 14px; }
+    .brand small { display: block; color: #a8a29e; font-family: "Inter", sans-serif; letter-spacing: .2em; font-size: 10px; margin-top: 4px; }
+    .check { width: 72px; height: 72px; margin: 36px auto 24px; border-radius: 50%; background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3); display: grid; place-items: center; color: #f59e0b; }
+    h1 { font-family: "Playfair Display", Georgia, serif; font-weight: 500; font-size: clamp(34px, 7vw, 48px); line-height: 1.1; margin: 0; }
+    h1 em { color: #f59e0b; font-style: italic; }
+    .lead { color: #a8a29e; margin: 16px auto 0; max-width: 46ch; font-size: 16px; }
+    .card { margin: 32px 0 0; background: #15131c; border: 1px solid #292524; border-radius: 24px; padding: 24px; text-align: left; }
+    .card h2 { margin: 0 0 14px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #f59e0b; font-weight: 600; }
+    .card dl { margin: 0; display: grid; gap: 12px; }
+    .card dl div { display: flex; justify-content: space-between; gap: 16px; font-size: 15px; border-bottom: 1px solid #292524; padding-bottom: 10px; }
+    .card dt { color: #a8a29e; }
+    .card dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; word-break: break-word; }
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+      margin-top: 28px; padding: 18px 24px; border-radius: 18px; background: #16a34a; color: #fff;
+      text-decoration: none; font-weight: 700; font-size: 17px; transition: background .2s;
+    }
+    .btn:hover { background: #15803d; }
+    .btn:focus-visible, a:focus-visible { outline: 2px solid #fbbf24; outline-offset: 3px; }
+    .next { margin-top: 22px; font-size: 14px; color: #a8a29e; }
+    .next strong { color: #f5f5f4; font-weight: 600; }
+    .back { display: inline-block; margin-top: 24px; font-size: 14px; color: #a8a29e; }
+    .back:hover { color: #f5f5f4; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="brand">BA | Eventos<small>Bar e Coquetelaria</small></p>
+
+    <div class="check" aria-hidden="true">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+
+    <h1>Recebemos o seu <em>pedido</em>.</h1>
+    <p class="lead">Falta só um passo: confirmar pelo WhatsApp e combinar os detalhes com a nossa equipe.</p>
+
+    <section class="card" id="resumo" aria-labelledby="resumo-titulo">
+      <h2 id="resumo-titulo">Seus dados</h2>
+      <dl>
+        <div><dt>Nome</dt><dd id="v-nome">—</dd></div>
+        <div><dt>Tipo de evento</dt><dd id="v-tipo">—</dd></div>
+        <div><dt>Convidados</dt><dd id="v-convidados">—</dd></div>
+        <div><dt>Data prevista</dt><dd id="v-data">a definir</dd></div>
+        <div><dt>WhatsApp</dt><dd id="v-contato">—</dd></div>
+      </dl>
+    </section>
+
+    <a class="btn" id="btn-wa" href="https://wa.me/5544998633217?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20para%20o%20meu%20evento." target="_blank" rel="noopener noreferrer">
+      Continuar no WhatsApp
+    </a>
+    <p class="next">Em seguida, nossa equipe <strong>envia a proposta</strong> com menu, valor e condições.</p>
+
+    <a class="back" href="/">Voltar ao site</a>
+  </main>
+
+  <script>
+    (function () {
+      var KEY = 'ba-lead';
+      var SENT = 'ba-lead-sent';
+      var lead = null;
+      try { lead = JSON.parse(sessionStorage.getItem(KEY)); } catch (e) { lead = null; }
+
+      // Lead: dispara uma vez por pedido, quando a página de obrigado é carregada.
+      var alreadySent = false;
+      try { alreadySent = sessionStorage.getItem(SENT) === '1'; } catch (e) {}
+      if (lead && !alreadySent && typeof window.fbq === 'function') {
+        window.fbq('track', 'Lead');
+        try { sessionStorage.setItem(SENT, '1'); } catch (e) {}
+      }
+
+      if (lead) {
+        var set = function (id, value) { document.getElementById(id).textContent = value || 'a definir'; };
+        set('v-nome', lead.name);
+        set('v-tipo', lead.eventType);
+        set('v-convidados', lead.guests ? String(lead.guests) : '');
+        set('v-data', lead.date);
+        set('v-contato', lead.whatsapp);
+
+        var message = 'Olá! Quero um orçamento para o meu evento.\n' +
+          '- Nome: ' + (lead.name || '') + '\n' +
+          '- Tipo de evento: ' + (lead.eventType || '') + '\n' +
+          '- Convidados: ' + (lead.guests || '') + '\n' +
+          '- Data prevista: ' + (lead.date || 'a definir') + '\n' +
+          '- Contato: ' + (lead.whatsapp || '');
+        document.getElementById('btn-wa').href = 'https://wa.me/5544998633217?text=' + encodeURIComponent(message);
+      } else {
+        // Sem dados guardados (por exemplo, quem abriu o link direto): sem resumo, o botão ainda abre o WhatsApp.
+        document.getElementById('resumo').classList.add('hidden');
+      }
+    })();
+  </script>
+</body>
+</html>
