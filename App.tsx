@@ -297,7 +297,6 @@ const App: React.FC = () => {
               <li className="px-4 py-2 rounded-full bg-stone-900/60 border border-stone-800">Contrato incluso</li>
               <li className="px-4 py-2 rounded-full bg-stone-900/60 border border-stone-800">Entrada de 30%</li>
               <li className="px-4 py-2 rounded-full bg-stone-900/60 border border-stone-800">+300 eventos atendidos</li>
-              <li className="px-4 py-2 rounded-full bg-stone-900/60 border border-stone-800">Quase 10 anos com bar</li>
             </ul>
           </div>
 
@@ -551,7 +550,6 @@ const App: React.FC = () => {
             <div className="space-y-8 text-center sm:text-left">
               <h4 className="text-white font-bold text-lg uppercase tracking-widest">Atendimento</h4>
               <p className="text-stone-400 leading-relaxed text-sm">Maringá e região.</p>
-              <a href="https://g.page/r/CZh84xBNpNAVEBE/review" target="_blank" rel="noopener noreferrer" className="text-stone-400 hover:text-amber-500 underline underline-offset-4 text-sm transition-colors">Ver avaliações no Google</a>
             </div>
             <div className="space-y-8 text-center sm:text-left">
               <h4 className="text-white font-bold text-lg uppercase tracking-widest">Orçamentos</h4>
