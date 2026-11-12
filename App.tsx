@@ -30,22 +30,6 @@ const ProcessStep: React.FC<{ icon: React.ReactNode; title: string; text: string
   </div>
 );
 
-const DrinkCard: React.FC<{ name: string; tag: string; text: string }> = ({ name, tag, text }) => (
-  <article className="snap-start shrink-0 w-[78vw] sm:w-[320px] h-[420px] flex flex-col justify-end p-8 rounded-[2.5rem] bg-gradient-to-b from-stone-900 to-stone-950 border border-stone-800 hover:border-amber-500/40 transition-all group">
-    <p className="text-amber-500 text-[10px] uppercase tracking-[0.3em] font-bold mb-3">{tag}</p>
-    <h3 className="text-3xl font-bold text-white uppercase tracking-tight mb-3">{name}</h3>
-    <p className="text-stone-400 text-sm font-light leading-relaxed mb-6">{text}</p>
-    <a
-      href={waLink(`Olá! Tenho interesse no drink ${name} para o meu evento.`)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-xs font-bold uppercase tracking-widest text-white group-hover:text-amber-500 transition-colors"
-    >
-      Quero esse drink →
-    </a>
-  </article>
-);
-
 const MenuCard: React.FC<{
   icon: React.ReactNode;
   title: string;
@@ -175,6 +159,15 @@ const PrivacyModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOp
   );
 };
 
+const DRINKS_SHOWCASE = [
+  { name: 'Caipirinha', slug: 'caipirinha' },
+  { name: 'Aperol Spritz', slug: 'aperol-spritz' },
+  { name: 'Gin Tônica', slug: 'gin-tonica' },
+  { name: 'Piña Colada', slug: 'pina-colada' },
+  { name: 'Moscow Mule', slug: 'moscow-mule' },
+  { name: 'Negroni', slug: 'negroni' },
+  { name: 'Whisky Sour', slug: 'whisky-sour' }
+];
 const DRINKS_ESSENCIAL = ['Caipirinha / Caipiroska', 'Saquerita', 'Mojito', 'Piña Colada', 'Brisa do Cerrado', 'Maracujá Tropical', 'Soda Italiana'];
 const DRINKS_DESTAQUE = ['Caipirinha / Caipiroska com até 3 frutas', 'Gin & Tônica', 'Gin com chá de frutas vermelhas', 'Sex on the Beach', 'Cosmopolitan', 'Moscow Mule artesanal'];
 const SIGNATURE = ['Negroni', 'Aperol Spritz', 'Penicillin', 'Old Fashioned', 'Manhattan', 'Fitzgerald', 'Whisky Sour'];
@@ -193,14 +186,9 @@ const App: React.FC = () => {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   const formRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollDrinks = (direction: number) => {
-    trackRef.current?.scrollBy({ left: direction * 340, behavior: 'smooth' });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -295,7 +283,6 @@ const App: React.FC = () => {
             <ul className="flex flex-wrap justify-center gap-3 text-xs text-stone-300">
               <li className="px-4 py-2 rounded-full bg-stone-900/60 border border-stone-800">Até 5 horas de atendimento</li>
               <li className="px-4 py-2 rounded-full bg-stone-900/60 border border-stone-800">Contrato incluso</li>
-              <li className="px-4 py-2 rounded-full bg-stone-900/60 border border-stone-800">Entrada de 30%</li>
               <li className="px-4 py-2 rounded-full bg-stone-900/60 border border-stone-800">+300 eventos atendidos</li>
             </ul>
           </div>
@@ -396,41 +383,43 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Carrossel de drinks */}
-      <section id="drinks" className="py-32 bg-stone-950">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
-            <div className="space-y-4">
-              <h2 className="text-5xl sm:text-7xl font-bold text-white tracking-tighter uppercase">Os <span className="text-amber-500 italic">drinks</span></h2>
-              <p className="text-stone-400 text-xl max-w-2xl font-light">Arraste para conhecer os drinks de cada menu.</p>
-            </div>
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={() => scrollDrinks(-1)}
-                aria-label="Drinks anteriores"
-                className="w-12 h-12 rounded-full border border-stone-800 text-white hover:border-amber-500 transition-colors"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollDrinks(1)}
-                aria-label="Próximos drinks"
-                className="w-12 h-12 rounded-full border border-stone-800 text-white hover:border-amber-500 transition-colors"
-              >
-                →
-              </button>
-            </div>
+      {/* Carrossel de drinks: animação contínua, sem botões */}
+      <section id="drinks" className="py-32 bg-stone-950 overflow-hidden">
+        <style>{`
+          @keyframes drinks-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+          .drinks-track { animation: drinks-scroll 45s linear infinite; }
+          .drinks-marquee:hover .drinks-track { animation-play-state: paused; }
+          @media (prefers-reduced-motion: reduce) { .drinks-track { animation: none; } }
+        `}</style>
+        <div className="max-w-7xl mx-auto px-6 mb-16">
+          <div className="space-y-4">
+            <h2 className="text-5xl sm:text-7xl font-bold text-white tracking-tighter uppercase">Os <span className="text-amber-500 italic">drinks</span></h2>
+            <p className="text-stone-400 text-xl max-w-2xl font-light">Alguns dos drinks que preparamos nos seus eventos.</p>
           </div>
-
-          <div ref={trackRef} tabIndex={0} className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 [scrollbar-width:none]" aria-label="Carrossel de drinks">
-            {DRINKS_ESSENCIAL.map(name => (
-              <DrinkCard key={`e-${name}`} name={name} tag="Menu Essencial" text="Clássicos e tropicais, para eventos descontraídos." />
-            ))}
-            {DRINKS_DESTAQUE.map(name => (
-              <DrinkCard key={`d-${name}`} name={name} tag="Menu Destaque" text="Drinks modernos e refrescantes, com apresentação diferenciada." />
-            ))}
+        </div>
+        <div className="drinks-marquee overflow-hidden">
+          <div className="drinks-track flex gap-6 pr-6 w-max">
+            {[...DRINKS_SHOWCASE, ...DRINKS_SHOWCASE].map((d, i) => {
+              const isCopy = i >= DRINKS_SHOWCASE.length;
+              return (
+                <figure
+                  key={`${d.slug}-${i}`}
+                  aria-hidden={isCopy ? true : undefined}
+                  className="relative shrink-0 w-[260px] h-[340px] sm:w-[300px] sm:h-[380px] rounded-[2.5rem] overflow-hidden border border-stone-800 bg-gradient-to-b from-stone-900 to-stone-950 m-0"
+                >
+                  <img
+                    src={`/drinks/${d.slug}.jpg`}
+                    alt={isCopy ? '' : d.name}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
+                  <figcaption className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-stone-950/90 to-transparent">
+                    <span className="text-2xl font-bold text-white uppercase tracking-tight">{d.name}</span>
+                  </figcaption>
+                </figure>
+              );
+            })}
           </div>
         </div>
       </section>
