@@ -35,11 +35,12 @@ const MenuCard: React.FC<{
   title: string;
   text: string;
   items: string[];
+  descriptions?: Record<string, string>;
   note?: string;
   cta: string;
   message: string;
   highlight?: boolean;
-}> = ({ icon, title, text, items, note, cta, message, highlight }) => (
+}> = ({ icon, title, text, items, descriptions, note, cta, message, highlight }) => (
   <div className={`flex flex-col justify-between rounded-[2.5rem] p-8 transition-all duration-500 h-full ${highlight ? 'bg-stone-900/60 border-2 border-amber-500 shadow-[0_0_50px_rgba(245,158,11,0.1)]' : 'bg-stone-900/40 border border-stone-800/80 hover:border-amber-500/30'}`}>
     <div>
       <div className="mb-6">
@@ -51,9 +52,14 @@ const MenuCard: React.FC<{
       </div>
       <ul className="space-y-3 mb-8">
         {items.map((drink) => (
-          <li key={drink} className="flex items-center gap-2.5 text-stone-300">
-            <div className="w-1.5 h-1.5 bg-amber-500/50 rounded-full shrink-0"></div>
-            <span className="text-xs font-medium tracking-wide">{drink}</span>
+          <li key={drink} className="flex items-start gap-2.5 text-stone-300">
+            <div className="w-1.5 h-1.5 mt-1.5 bg-amber-500/50 rounded-full shrink-0"></div>
+            <div>
+              <span className="block text-xs font-medium tracking-wide">{drink}</span>
+              {descriptions?.[drink] && (
+                <span className="block text-[11px] leading-snug text-stone-400 font-light mt-0.5">{descriptions[drink]}</span>
+              )}
+            </div>
           </li>
         ))}
       </ul>
@@ -170,7 +176,17 @@ const DRINKS_SHOWCASE = [
 ];
 const DRINKS_ESSENCIAL = ['Caipirinha / Caipiroska', 'Saquerita', 'Mojito', 'Piña Colada', 'Brisa do Cerrado', 'Maracujá Tropical', 'Soda Italiana'];
 const DRINKS_DESTAQUE = ['Caipirinha / Caipiroska com até 3 frutas', 'Gin & Tônica', 'Gin com chá de frutas vermelhas', 'Sex on the Beach', 'Cosmopolitan', 'Moscow Mule artesanal'];
-const SIGNATURE = ['Negroni', 'Aperol Spritz', 'Penicillin', 'Old Fashioned', 'Manhattan', 'Fitzgerald', 'Whisky Sour'];
+const SIGNATURE = ['Negroni', 'Aperol Spritz', 'Penicillin', 'Old Fashioned', 'Manhattan', 'Fitzgerald', 'Whisky Sour', 'Rabo de Galo'];
+const SIGNATURE_DESCRIPTIONS: Record<string, string> = {
+  'Negroni': 'Gin, Campari e vermute rosso, com casca de laranja.',
+  'Aperol Spritz': 'Aperol, espumante e água com gás, leve e refrescante.',
+  'Penicillin': 'Whisky, mel, gengibre e limão.',
+  'Old Fashioned': 'Bourbon, açúcar e angostura, com casca de laranja.',
+  'Manhattan': 'Whisky de centeio, vermute e angostura.',
+  'Fitzgerald': 'Gin, limão, açúcar e angostura.',
+  'Whisky Sour': 'Whisky, limão e açúcar, com uma espuma sedosa.',
+  'Rabo de Galo': 'Cachaça, vermute e angostura, um clássico brasileiro.'
+};
 const SEM_ALCOOL = ['Sex on the Beach', 'Mojito', 'Soda Italiana', 'Moscow Mule', 'Piña Colada'];
 
 const App: React.FC = () => {
@@ -306,7 +322,7 @@ const App: React.FC = () => {
                     aria-label="Seu nome"
                     placeholder="Seu nome"
                     autoComplete="name"
-                    className="w-full bg-stone-950/50 border border-stone-800 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-600"
+                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
                     value={formData.name}
                     onChange={handleInputChange}
                   />
@@ -317,7 +333,7 @@ const App: React.FC = () => {
                     aria-label="Seu WhatsApp com DDD"
                     placeholder="WhatsApp (com DDD)"
                     autoComplete="tel"
-                    className="w-full bg-stone-950/50 border border-stone-800 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-600"
+                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
                     value={formData.whatsapp}
                     onChange={handleInputChange}
                   />
@@ -328,7 +344,7 @@ const App: React.FC = () => {
                     required
                     name="eventType"
                     aria-label="Tipo de evento"
-                    className={`w-full bg-stone-950/50 border border-stone-800 rounded-2xl py-5 px-6 focus:outline-none focus:border-amber-500 transition-all appearance-none cursor-pointer ${formData.eventType ? 'text-stone-100' : 'text-stone-600'}`}
+                    className={`w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 focus:outline-none focus:border-amber-500 transition-all appearance-none cursor-pointer ${formData.eventType ? 'text-stone-100' : 'text-stone-400'}`}
                     value={formData.eventType}
                     onChange={handleInputChange}
                   >
@@ -348,7 +364,7 @@ const App: React.FC = () => {
                     placeholder="Número de convidados"
                     min="1"
                     inputMode="numeric"
-                    className="w-full bg-stone-950/50 border border-stone-800 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-600"
+                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
                     value={formData.guests || ''}
                     onChange={handleInputChange}
                   />
@@ -359,7 +375,7 @@ const App: React.FC = () => {
                   name="date"
                   aria-label="Data prevista"
                   min={new Date().toISOString().split('T')[0]}
-                  className="w-full bg-stone-950/50 border border-stone-800 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all"
+                  className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all"
                   value={formData.date}
                   onChange={handleInputChange}
                 />
@@ -464,6 +480,7 @@ const App: React.FC = () => {
               title="Signature Selection"
               text="Clássicos refinados, adicionados ao seu menu principal."
               items={SIGNATURE}
+              descriptions={SIGNATURE_DESCRIPTIONS}
               note="Adicional"
               cta="Quero adicionar"
               message="Olá! Tenho interesse na Signature Selection como adicional para o meu evento."
