@@ -593,7 +593,8 @@ const App: React.FC = () => {
             </div>
             <div className="space-y-8 text-center sm:text-left">
               <h4 className="text-white font-bold text-lg uppercase tracking-widest">Orçamentos</h4>
-              <p className="text-stone-400 text-sm">Pelo formulário ou direto no WhatsApp: 44 99863-3217.</p>
+              <p className="text-stone-400 text-sm leading-relaxed">Preencha o formulário e continue pelo WhatsApp.</p>
+              <button onClick={scrollToForm} className="text-amber-500 hover:text-white underline underline-offset-4 text-sm transition-colors">Ir para o formulário</button>
             </div>
             <div className="space-y-8 text-center sm:text-left">
               <h4 className="text-white font-bold text-lg uppercase tracking-widest text-amber-500">Sobre o bar</h4>
