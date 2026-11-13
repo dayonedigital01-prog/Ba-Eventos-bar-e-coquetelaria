@@ -10,7 +10,11 @@ import {
   Truck,
   Settings,
   Sparkles,
-  Star
+  Star,
+  Martini,
+  Wine,
+  Citrus,
+  CupSoda
 } from 'lucide-react';
 import { LeadData } from './types';
 
@@ -244,9 +248,15 @@ const App: React.FC = () => {
     scrollToForm();
   };
 
-  const removeMenu = (title: string) => {
-    setMenuSelection(prev => prev.filter(t => t !== title));
+  const setBaseMenu = (value: string) => {
+    setMenuSelection(prev => [value, ...prev.filter(t => t === 'Signature Selection')].filter(Boolean));
   };
+
+  const toggleSignature = () => {
+    setMenuSelection(prev => prev.includes('Signature Selection') ? prev.filter(t => t !== 'Signature Selection') : [...prev, 'Signature Selection']);
+  };
+
+  const baseMenu = menuSelection.find(t => t !== 'Signature Selection') || '';
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -356,20 +366,6 @@ const App: React.FC = () => {
                 <p className="text-stone-400 font-medium">Preencha os dados e continue pelo WhatsApp.</p>
               </div>
 
-              {menuSelection.length > 0 && (
-                <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-4 space-y-3">
-                  <p className="text-xs uppercase tracking-widest text-amber-500 font-bold">Menu escolhido</p>
-                  <ul className="flex flex-wrap gap-2">
-                    {menuSelection.map(t => (
-                      <li key={t} className="flex items-center gap-2 pl-4 pr-2 py-1.5 rounded-full bg-stone-800 border border-stone-500 text-sm text-stone-100">
-                        {t}
-                        <button type="button" onClick={() => removeMenu(t)} aria-label={`Remover ${t}`} className="w-6 h-6 rounded-full text-stone-400 hover:text-white hover:bg-stone-700">×</button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
               <div className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <input
@@ -427,12 +423,33 @@ const App: React.FC = () => {
                   />
                 </div>
 
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <select
+                    required
+                    name="menu"
+                    aria-label="Menu escolhido"
+                    value={baseMenu}
+                    onChange={(e) => setBaseMenu(e.target.value)}
+                    className={`w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 focus:outline-none focus:border-amber-500 transition-all appearance-none cursor-pointer ${baseMenu ? 'text-stone-100' : 'text-stone-400'}`}
+                  >
+                    <option value="" disabled>Escolha o menu</option>
+                    <option value="Essencial" className="bg-stone-900">Essencial</option>
+                    <option value="Destaque" className="bg-stone-900">Destaque</option>
+                    <option value="Sem Álcool" className="bg-stone-900">Sem Álcool</option>
+                    <option value="Ainda não decidi" className="bg-stone-900">Ainda não decidi</option>
+                  </select>
+                  <label className="flex items-center gap-3 px-6 py-5 rounded-2xl bg-stone-800 border border-stone-500 text-stone-100 cursor-pointer">
+                    <input type="checkbox" checked={menuSelection.includes('Signature Selection')} onChange={toggleSignature} className="w-5 h-5 accent-amber-500" />
+                    <span>Adicionar Signature Selection</span>
+                  </label>
+                </div>
+
                 <input
                   required
                   type="text"
                   name="location"
                   aria-label="Cidade do evento"
-                  placeholder="Cidade do evento (ex.: Maringá)"
+                  placeholder="Cidade (ex.: Maringá)"
                   autoComplete="address-level2"
                   className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
                   value={formData.location}
@@ -489,20 +506,20 @@ const App: React.FC = () => {
           </div>
         </div>
         <div className="drinks-marquee overflow-hidden">
-          <div className="drinks-track flex gap-6 pr-6 w-max">
+          <div className="drinks-track flex w-max">
             {[...DRINKS_SHOWCASE, ...DRINKS_SHOWCASE].map((d, i) => {
               const isCopy = i >= DRINKS_SHOWCASE.length;
               return (
                 <figure
                   key={`${d.slug}-${i}`}
                   aria-hidden={isCopy ? true : undefined}
-                  className="relative shrink-0 w-[260px] h-[340px] sm:w-[300px] sm:h-[380px] rounded-[2.5rem] overflow-hidden border border-stone-800 bg-gradient-to-b from-stone-900 to-stone-950 m-0"
+                  className="relative shrink-0 ml-6 w-[260px] h-[260px] sm:w-[300px] sm:h-[300px] rounded-[2.5rem] overflow-hidden border border-stone-800 bg-stone-900 m-0 ml-6"
                 >
                   <img
                     src={`/drinks/${d.slug}.jpg`}
                     alt={isCopy ? '' : d.name}
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
                     onError={(e) => { e.currentTarget.style.display = 'none'; }}
                   />
                   <figcaption className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-stone-950/90 to-transparent">
@@ -511,6 +528,29 @@ const App: React.FC = () => {
                 </figure>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Estrutura: foto em destaque e utensílios */}
+      <section className="py-24 bg-stone-950 border-t border-stone-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-5 gap-10 items-center">
+            <div className="lg:col-span-2 space-y-8">
+              <h2 className="text-4xl sm:text-6xl font-bold text-white tracking-tighter uppercase">Nossa <span className="text-amber-500 italic">estrutura</span></h2>
+              <p className="text-stone-400 text-lg font-light leading-relaxed">Bar montado no local do evento, com balcão, gelo e tudo o que o serviço precisa.</p>
+              <ul className="grid grid-cols-2 gap-4 text-stone-300 text-sm">
+                <li className="flex items-center gap-3 p-4 rounded-2xl bg-stone-900/60 border border-stone-800"><Martini size={20} className="text-amber-500" /> Coqueteleiras</li>
+                <li className="flex items-center gap-3 p-4 rounded-2xl bg-stone-900/60 border border-stone-800"><Wine size={20} className="text-amber-500" /> Taças e copos</li>
+                <li className="flex items-center gap-3 p-4 rounded-2xl bg-stone-900/60 border border-stone-800"><Citrus size={20} className="text-amber-500" /> Frutas frescas</li>
+                <li className="flex items-center gap-3 p-4 rounded-2xl bg-stone-900/60 border border-stone-800"><CupSoda size={20} className="text-amber-500" /> Gelo e mixers</li>
+              </ul>
+            </div>
+            <div className="lg:col-span-3 grid grid-cols-2 gap-4">
+              <img src="/estrutura/bar-lateral.jpg" alt="Bar montado para evento com balcão branco e taças" loading="lazy" className="col-span-2 w-full aspect-[4/3] object-cover rounded-[2rem] border border-stone-800" />
+              <img src="/estrutura/bar-frente.jpg" alt="Balcão do bar com garrafas e copos decorados" loading="lazy" className="w-full aspect-[3/4] object-cover rounded-[2rem] border border-stone-800" />
+              <img src="/estrutura/bar-detalhe.jpg" alt="Detalhe do balcão com copos de cristal e coqueteleiras de cobre" loading="lazy" className="w-full aspect-[3/4] object-cover rounded-[2rem] border border-stone-800" />
+            </div>
           </div>
         </div>
       </section>
