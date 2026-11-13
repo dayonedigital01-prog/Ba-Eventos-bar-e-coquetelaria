@@ -168,7 +168,7 @@ const PrivacyModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOp
 
 const DRINKS_SHOWCASE = [
   { name: 'Caipirinha', slug: 'caipirinha' },
-  { name: 'Aperol Spritz', slug: 'aperol-spritz' },
+  { name: 'Aperol Spritz', slug: 'aperol-spritz', fit: 'contain' as const },
   { name: 'Gin Tônica', slug: 'gin-tonica' },
   { name: 'Piña Colada', slug: 'pina-colada' },
   { name: 'Moscow Mule', slug: 'moscow-mule' },
@@ -525,7 +525,7 @@ const App: React.FC = () => {
                     src={`/drinks/${d.slug}.jpg`}
                     alt={isCopy ? '' : d.name}
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover object-center"
+                    className={`absolute inset-0 w-full h-full ${d.fit === 'contain' ? 'object-contain bg-stone-950' : 'object-cover object-center'}`}
                     onError={(e) => { e.currentTarget.style.display = 'none'; }}
                   />
                   <figcaption className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-stone-950/90 to-transparent">
