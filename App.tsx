@@ -512,8 +512,8 @@ const App: React.FC = () => {
         `}</style>
         <div className="max-w-7xl mx-auto px-6 mb-16">
           <div className="space-y-4">
-            <h2 className="text-5xl sm:text-7xl font-bold text-white tracking-tighter uppercase">Favoritos da <span className="text-amber-500 italic">galera</span></h2>
-            <p className="text-stone-400 text-xl max-w-2xl font-light">Os drinks que mais agradam nos nossos eventos.</p>
+            <h2 className="text-5xl sm:text-7xl font-bold text-white tracking-tighter uppercase">Os mais <span className="text-amber-500 italic">pedidos</span></h2>
+            <p className="text-stone-400 text-xl max-w-2xl font-light">Os drinks que mais saem nos nossos eventos.</p>
           </div>
         </div>
         <div className="drinks-marquee overflow-hidden">
