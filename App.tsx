@@ -330,6 +330,7 @@ const App: React.FC = () => {
 
       {/* Seção Hero */}
       <section className="relative min-h-screen flex items-center pt-24 pb-20">
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-stone-950/80 via-stone-950/70 to-stone-950/95 pointer-events-none"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-10 text-center flex flex-col items-center">
             <div className="inline-flex items-center justify-center gap-3 px-6 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-[0.3em]">
@@ -337,11 +338,15 @@ const App: React.FC = () => {
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] text-white tracking-tighter">
-              Drinks preparados na hora <br />
-              <span className="text-amber-500 italic">para o seu evento</span>
+              Redescubra o <br />
+              <span className="text-amber-500 italic">prazer de beber</span>
             </h1>
 
             <p className="text-xl sm:text-2xl text-stone-200 max-w-xl mx-auto leading-relaxed font-light">
+              Deixe a mesmice pra trás e se jogue numa aventura de sabores incríveis!
+            </p>
+
+            <p className="text-base sm:text-lg text-stone-400 max-w-xl mx-auto leading-relaxed font-light">
               Equipe, estrutura e coquetelaria clássica e moderna, com até 5 horas de atendimento.
             </p>
 
