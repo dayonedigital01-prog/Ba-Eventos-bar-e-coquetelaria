@@ -301,7 +301,7 @@ const App: React.FC = () => {
     <div className="relative min-h-screen selection:bg-amber-500 selection:text-stone-950 overflow-x-hidden font-sans text-stone-100">
       {/* Foto da estrutura como fundo da página, bem suave */}
       <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
-        <img ref={bgRef} src="/estrutura/bar-lateral.jpg" alt="" className="absolute inset-0 w-full h-full object-cover opacity-60" />
+        <img ref={bgRef} src="/estrutura/bar-frente.jpg" alt="" className="absolute inset-0 w-full h-full object-cover opacity-60" />
         <div className="absolute inset-0 bg-stone-950/20"></div>
       </div>
       {/* Navegação */}
