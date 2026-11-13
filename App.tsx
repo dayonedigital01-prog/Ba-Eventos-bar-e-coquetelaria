@@ -9,7 +9,8 @@ import {
   Zap,
   Truck,
   Settings,
-  Sparkles
+  Sparkles,
+  Star
 } from 'lucide-react';
 import { LeadData } from './types';
 
@@ -626,10 +627,14 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-16 mb-24 text-center md:text-left">
             <BALogo className="scale-125" />
-            <div className="flex gap-12 text-stone-400 font-bold uppercase tracking-[0.2em] text-[10px]">
-              <a href="https://www.instagram.com/baeventosbar/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-amber-500 transition-colors group" aria-label="Siga-nos no Instagram">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a href="https://www.instagram.com/baeventosbar/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 px-7 py-4 rounded-2xl bg-stone-900 border border-amber-500/40 text-white font-bold text-sm hover:bg-amber-500 hover:text-stone-950 hover:border-amber-500 transition-all group">
                 <Instagram size={20} className="group-hover:rotate-12 transition-transform" />
-                <span>Instagram</span>
+                <span>Siga no Instagram</span>
+              </a>
+              <a href="https://g.page/r/CZh84xBNpNAVEBE/review" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 px-7 py-4 rounded-2xl bg-stone-900 border border-amber-500/40 text-white font-bold text-sm hover:bg-amber-500 hover:text-stone-950 hover:border-amber-500 transition-all group">
+                <Star size={20} className="group-hover:scale-110 transition-transform" />
+                <span>Avalie no Google</span>
               </a>
             </div>
           </div>
@@ -638,7 +643,6 @@ const App: React.FC = () => {
             <div className="space-y-8 text-center sm:text-left">
               <h4 className="text-white font-bold text-lg uppercase tracking-widest">Atendimento</h4>
               <p className="text-stone-400 leading-relaxed text-sm">Maringá e região.</p>
-              <a href="https://g.page/r/CZh84xBNpNAVEBE/review" target="_blank" rel="noopener noreferrer" className="text-stone-400 hover:text-amber-500 underline underline-offset-4 text-sm transition-colors">Ver avaliações no Google</a>
             </div>
             <div className="space-y-8 text-center sm:text-left">
               <h4 className="text-white font-bold text-lg uppercase tracking-widest">Orçamentos</h4>
