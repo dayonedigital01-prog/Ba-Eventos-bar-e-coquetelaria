@@ -10,11 +10,7 @@ import {
   Truck,
   Settings,
   Sparkles,
-  Star,
-  Martini,
-  Wine,
-  Citrus,
-  CupSoda
+  Star
 } from 'lucide-react';
 import { LeadData } from './types';
 
@@ -287,7 +283,12 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen selection:bg-amber-500 selection:text-stone-950 bg-stone-950 overflow-x-hidden font-sans text-stone-100">
+    <div className="relative min-h-screen selection:bg-amber-500 selection:text-stone-950 overflow-x-hidden font-sans text-stone-100">
+      {/* Foto da estrutura como fundo da página, bem suave */}
+      <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none">
+        <img src="/estrutura/bar-lateral.jpg" alt="" className="w-full h-full object-cover opacity-[0.14]" />
+        <div className="absolute inset-0 bg-stone-950/40"></div>
+      </div>
       {/* Navegação */}
       <nav className="fixed top-0 w-full z-50 bg-stone-950/98 backdrop-blur-md border-b border-stone-900/80 shadow-2xl">
         <div className="max-w-7xl mx-auto px-6 h-24 grid grid-cols-3 items-center">
@@ -314,16 +315,6 @@ const App: React.FC = () => {
 
       {/* Seção Hero */}
       <section className="relative min-h-screen flex items-center pt-24 pb-20">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/estrutura/bar-frente.jpg"
-            className="absolute top-0 inset-x-0 w-full h-[460px] sm:h-full object-cover object-[50%_62%] opacity-40 [mask-image:linear-gradient(to_bottom,black_55%,transparent)] sm:[mask-image:none]"
-            alt=""
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-stone-950 via-stone-950/90 to-transparent"></div>
-        </div>
-
         <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-10 text-center flex flex-col items-center">
             <div className="inline-flex items-center justify-center gap-3 px-6 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-[0.3em]">
@@ -492,7 +483,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Carrossel de drinks: animação contínua, sem botões */}
-      <section id="drinks" className="py-32 bg-stone-950 overflow-hidden">
+      <section id="drinks" className="py-32 bg-stone-950/80 overflow-hidden">
         <style>{`
           @keyframes drinks-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
           .drinks-track { animation: drinks-scroll 45s linear infinite; }
@@ -532,31 +523,8 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Estrutura: foto em destaque e utensílios */}
-      <section className="py-24 bg-stone-950 border-t border-stone-900">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-5 gap-10 items-center">
-            <div className="lg:col-span-2 space-y-8">
-              <h2 className="text-4xl sm:text-6xl font-bold text-white tracking-tighter uppercase">Nossa <span className="text-amber-500 italic">estrutura</span></h2>
-              <p className="text-stone-400 text-lg font-light leading-relaxed">Bar montado no local do evento, com balcão, gelo e tudo o que o serviço precisa.</p>
-              <ul className="grid grid-cols-2 gap-4 text-stone-300 text-sm">
-                <li className="flex items-center gap-3 p-4 rounded-2xl bg-stone-900/60 border border-stone-800"><Martini size={20} className="text-amber-500" /> Coqueteleiras</li>
-                <li className="flex items-center gap-3 p-4 rounded-2xl bg-stone-900/60 border border-stone-800"><Wine size={20} className="text-amber-500" /> Taças e copos</li>
-                <li className="flex items-center gap-3 p-4 rounded-2xl bg-stone-900/60 border border-stone-800"><Citrus size={20} className="text-amber-500" /> Frutas frescas</li>
-                <li className="flex items-center gap-3 p-4 rounded-2xl bg-stone-900/60 border border-stone-800"><CupSoda size={20} className="text-amber-500" /> Gelo e mixers</li>
-              </ul>
-            </div>
-            <div className="lg:col-span-3 grid grid-cols-2 gap-4">
-              <img src="/estrutura/bar-lateral.jpg" alt="Bar montado para evento com balcão branco e taças" loading="lazy" className="col-span-2 w-full aspect-[4/3] object-cover rounded-[2rem] border border-stone-800" />
-              <img src="/estrutura/bar-frente.jpg" alt="Balcão do bar com garrafas e copos decorados" loading="lazy" className="w-full aspect-[3/4] object-cover rounded-[2rem] border border-stone-800" />
-              <img src="/estrutura/bar-detalhe.jpg" alt="Detalhe do balcão com copos de cristal e coqueteleiras de cobre" loading="lazy" className="w-full aspect-[3/4] object-cover rounded-[2rem] border border-stone-800" />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Menus */}
-      <section id="menus" className="py-32 bg-[#0a0a0a] relative overflow-hidden">
+      <section id="menus" className="py-32 bg-[#0a0a0a]/80 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -622,7 +590,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Como Funciona */}
-      <section id="cardapio" className="py-24 px-6 bg-stone-950 relative overflow-hidden border-y border-stone-900">
+      <section id="cardapio" className="py-24 px-6 bg-stone-950/80 relative overflow-hidden border-y border-stone-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tighter uppercase">
@@ -663,7 +631,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Rodapé */}
-      <footer className="bg-stone-950 border-t border-stone-900 pt-32 pb-16">
+      <footer className="bg-stone-950/80 border-t border-stone-900 pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-16 mb-24 text-center md:text-left">
             <BALogo className="scale-125" />
