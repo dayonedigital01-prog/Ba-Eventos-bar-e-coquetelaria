@@ -42,7 +42,7 @@ const MenuCard: React.FC<{
   selected?: boolean;
   highlight?: boolean;
 }> = ({ icon, title, text, items, descriptions, note, cta, selectedLabel, onSelect, selected, highlight }) => (
-  <div className={`flex flex-col justify-between rounded-[2.5rem] p-8 transition-all duration-500 h-full ${highlight ? 'bg-stone-900/60 border-2 border-amber-500 shadow-[0_0_50px_rgba(245,158,11,0.1)]' : 'bg-stone-900/40 border border-stone-800/80 hover:border-amber-500/30'}`}>
+  <div className={`snap-center shrink-0 w-[82vw] max-w-[340px] md:w-auto md:max-w-none flex flex-col justify-between rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-8 transition-all duration-500 h-full ${highlight ? 'bg-stone-900/60 border-2 border-amber-500 shadow-[0_0_50px_rgba(245,158,11,0.1)]' : 'bg-stone-900/40 border border-stone-800/80 hover:border-amber-500/30'}`}>
     <div>
       <div className="mb-6">
         <div className={`inline-flex items-center justify-center p-2.5 rounded-xl mb-4 ${highlight ? 'bg-amber-500 text-stone-950' : 'bg-stone-800 text-amber-500'}`}>
@@ -51,7 +51,7 @@ const MenuCard: React.FC<{
         <h3 className="text-2xl font-bold text-white uppercase tracking-tight mb-2">{title}</h3>
         <p className="text-stone-400 text-xs font-light leading-relaxed">{text}</p>
       </div>
-      <ul className="space-y-3 mb-8">
+      <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
         {items.map((drink) => (
           <li key={drink} className="flex items-start gap-2.5 text-stone-300">
             <div className="w-1.5 h-1.5 mt-1.5 bg-amber-500/50 rounded-full shrink-0"></div>
@@ -329,10 +329,10 @@ const App: React.FC = () => {
       </nav>
 
       {/* Seção Hero */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-20">
+      <section className="relative lg:min-h-screen flex items-center pt-28 pb-12 lg:pt-24 lg:pb-20">
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-stone-950/80 via-stone-950/70 to-stone-950/95 pointer-events-none"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
-          <div className="space-y-10 text-center flex flex-col items-center">
+        <div className="relative z-10 max-w-3xl mx-auto px-6 items-center">
+          <div className="space-y-6 text-center flex flex-col items-center">
             <div className="inline-flex items-center justify-center gap-3 px-6 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-[0.3em]">
               <Zap size={14} /> Bar para eventos · Maringá e região
             </div>
@@ -350,7 +350,7 @@ const App: React.FC = () => {
               Equipe, estrutura e coquetelaria clássica e moderna, com até 5 horas de atendimento.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-6">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-2">
               <button
                 onClick={scrollToForm}
                 className="group bg-amber-600 hover:bg-amber-700 text-white px-12 py-5 rounded-2xl font-bold text-xl transition-all shadow-2xl shadow-amber-600/30 flex items-center justify-center gap-3"
@@ -367,143 +367,11 @@ const App: React.FC = () => {
             </ul>
           </div>
 
-          {/* Caixa do Formulário */}
-          <div ref={formRef} className="bg-stone-900/60 backdrop-blur-3xl p-10 lg:p-14 rounded-[3.5rem] border border-stone-800 shadow-[0_0_100px_rgba(0,0,0,0.5)] relative overflow-hidden">
-            <div className="absolute -top-32 -right-32 w-96 h-96 bg-amber-500/5 rounded-full blur-[120px]"></div>
-
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <div className="text-center mb-10">
-                <h2 className="text-4xl font-bold text-white mb-3 uppercase tracking-tighter">Peça seu orçamento</h2>
-                <p className="text-stone-400 font-medium">Preencha os dados e continue pelo WhatsApp.</p>
-              </div>
-
-              <div className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <input
-                    required
-                    type="text"
-                    name="name"
-                    aria-label="Seu nome"
-                    placeholder="Seu nome"
-                    autoComplete="name"
-                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    required
-                    type="tel"
-                    name="whatsapp"
-                    aria-label="Seu WhatsApp com DDD"
-                    placeholder="WhatsApp (com DDD)"
-                    autoComplete="tel"
-                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
-                    value={formData.whatsapp}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <select
-                    required
-                    name="eventType"
-                    aria-label="Tipo de evento"
-                    className={`w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 focus:outline-none focus:border-amber-500 transition-all appearance-none cursor-pointer ${formData.eventType ? 'text-stone-100' : 'text-stone-400'}`}
-                    value={formData.eventType}
-                    onChange={handleInputChange}
-                  >
-                    <option value="" disabled>Tipo de evento</option>
-                    <option value="Casamento" className="bg-stone-900">Casamento</option>
-                    <option value="Aniversário" className="bg-stone-900">Aniversário</option>
-                    <option value="Corporativo" className="bg-stone-900">Corporativo</option>
-                    <option value="Confraternização" className="bg-stone-900">Confraternização</option>
-                    <option value="Outro" className="bg-stone-900">Outro</option>
-                  </select>
-
-                  <input
-                    required
-                    type="number"
-                    name="guests"
-                    aria-label="Número de convidados"
-                    placeholder="Número de convidados"
-                    min="1"
-                    inputMode="numeric"
-                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
-                    value={formData.guests || ''}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <select
-                    required
-                    name="menu"
-                    aria-label="Menu escolhido"
-                    value={baseMenu}
-                    onChange={(e) => setBaseMenu(e.target.value)}
-                    className={`w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 focus:outline-none focus:border-amber-500 transition-all appearance-none cursor-pointer ${baseMenu ? 'text-stone-100' : 'text-stone-400'}`}
-                  >
-                    <option value="" disabled>Escolha o menu</option>
-                    <option value="Essencial" className="bg-stone-900">Essencial</option>
-                    <option value="Destaque" className="bg-stone-900">Destaque</option>
-                    <option value="Sem Álcool" className="bg-stone-900">Sem Álcool</option>
-                    <option value="Ainda não decidi" className="bg-stone-900">Ainda não decidi</option>
-                  </select>
-                  <label className="flex items-center gap-3 px-6 py-5 rounded-2xl bg-stone-800 border border-stone-500 text-stone-100 cursor-pointer">
-                    <input type="checkbox" checked={menuSelection.includes('Signature Selection')} onChange={toggleSignature} className="w-5 h-5 accent-amber-500" />
-                    <span>Adicionar Signature Selection</span>
-                  </label>
-                </div>
-
-                <input
-                  required
-                  type="text"
-                  name="location"
-                  aria-label="Cidade do evento"
-                  placeholder="Cidade (ex.: Maringá)"
-                  autoComplete="address-level2"
-                  className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
-                  value={formData.location}
-                  onChange={handleInputChange}
-                />
-
-                <div className="space-y-2">
-                  <label htmlFor="data-evento" className="block text-sm text-stone-300 px-2">
-                    Data do seu evento <span className="text-stone-500">(se ainda não souber, escolha uma data aproximada)</span>
-                  </label>
-                  <input
-                    id="data-evento"
-                    type="date"
-                    lang="pt-BR"
-                    name="date"
-                    min={new Date().toISOString().split('T')[0]}
-                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-5 px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all"
-                    value={formData.date}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-
-              <div className="text-center pt-2 pb-1 px-4">
-                <p className="text-xs sm:text-sm text-stone-400 font-light leading-relaxed">
-                  Experiência completa a partir de <span className="font-semibold text-amber-500/90">R$ 1.600</span>. O valor final depende do número de convidados e do menu.
-                </p>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-white hover:bg-amber-500 text-stone-950 py-6 rounded-2xl font-bold text-xl shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
-              >
-                <span>Continuar no WhatsApp</span>
-                <ChevronRight className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </form>
-          </div>
         </div>
       </section>
 
       {/* Carrossel de drinks: animação contínua, sem botões */}
-      <section id="drinks" className="py-32 bg-stone-950/40 overflow-hidden">
+      <section id="drinks" className="py-16 sm:py-24 bg-stone-950/40 overflow-hidden">
         <style>{`
           @keyframes drinks-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
           .drinks-track { animation: drinks-scroll 45s linear infinite; }
@@ -544,11 +412,11 @@ const App: React.FC = () => {
       </section>
 
       {/* Menus */}
-      <section id="menus" className="py-32 bg-[#0a0a0a]/40 relative overflow-hidden">
+      <section id="menus" className="py-16 sm:py-24 bg-[#0a0a0a]/40 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-24 space-y-4">
+          <div className="text-center mb-10 sm:mb-24 space-y-4">
             <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter uppercase">
               Escolha o menu <br />
               <span className="text-amber-500 italic">para o seu evento</span>
@@ -558,7 +426,7 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch overflow-x-auto md:overflow-visible snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 pb-4 md:pb-0 [scrollbar-width:none]">
             <MenuCard
               icon={<GlassWater size={20} />}
               title="Essencial"
@@ -610,9 +478,9 @@ const App: React.FC = () => {
       </section>
 
       {/* Como Funciona */}
-      <section id="cardapio" className="py-24 px-6 bg-stone-950/40 relative overflow-hidden border-y border-stone-900">
+      <section id="cardapio" className="py-16 sm:py-20 px-6 bg-stone-950/40 relative overflow-hidden border-y border-stone-900">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mb-10 sm:mb-20">
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tighter uppercase">
               Você aproveita a festa. <span className="text-amber-500 italic">O bar é com a gente.</span>
             </h2>
@@ -650,10 +518,152 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Formulário de orçamento: depois de conhecer drinks e menus */}
+      <section className="py-16 sm:py-24 px-6 bg-stone-950/40 border-t border-stone-900">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tighter uppercase">Peça seu <span className="text-amber-500 italic">orçamento</span></h2>
+            <p className="text-stone-400 mt-4 font-light">Preencha em um minuto. A equipe continua pelo WhatsApp.</p>
+          </div>
+          {/* Caixa do Formulário */}
+          <div ref={formRef} className="bg-stone-900/60 backdrop-blur-3xl p-6 sm:p-10 lg:p-12 rounded-[2rem] sm:rounded-[3.5rem] border border-stone-800 shadow-[0_0_100px_rgba(0,0,0,0.5)] relative overflow-hidden">
+            <div className="absolute -top-32 -right-32 w-96 h-96 bg-amber-500/5 rounded-full blur-[120px]"></div>
+
+            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              <div className="text-center mb-10">
+                <h2 className="text-4xl font-bold text-white mb-3 uppercase tracking-tighter">Peça seu orçamento</h2>
+                <p className="text-stone-400 font-medium">Preencha os dados e continue pelo WhatsApp.</p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <input
+                    required
+                    type="text"
+                    name="name"
+                    aria-label="Seu nome"
+                    placeholder="Seu nome"
+                    autoComplete="name"
+                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-4 px-5 sm:py-5 sm:px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                  />
+                  <input
+                    required
+                    type="tel"
+                    name="whatsapp"
+                    aria-label="Seu WhatsApp com DDD"
+                    placeholder="WhatsApp (com DDD)"
+                    autoComplete="tel"
+                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-4 px-5 sm:py-5 sm:px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
+                    value={formData.whatsapp}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <select
+                    required
+                    name="eventType"
+                    aria-label="Tipo de evento"
+                    className={`w-full bg-stone-800 border border-stone-500 rounded-2xl py-4 px-5 sm:py-5 sm:px-6 focus:outline-none focus:border-amber-500 transition-all appearance-none cursor-pointer ${formData.eventType ? 'text-stone-100' : 'text-stone-400'}`}
+                    value={formData.eventType}
+                    onChange={handleInputChange}
+                  >
+                    <option value="" disabled>Tipo de evento</option>
+                    <option value="Casamento" className="bg-stone-900">Casamento</option>
+                    <option value="Aniversário" className="bg-stone-900">Aniversário</option>
+                    <option value="Corporativo" className="bg-stone-900">Corporativo</option>
+                    <option value="Confraternização" className="bg-stone-900">Confraternização</option>
+                    <option value="Outro" className="bg-stone-900">Outro</option>
+                  </select>
+
+                  <input
+                    required
+                    type="number"
+                    name="guests"
+                    aria-label="Número de convidados"
+                    placeholder="Número de convidados"
+                    min="1"
+                    inputMode="numeric"
+                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-4 px-5 sm:py-5 sm:px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
+                    value={formData.guests || ''}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <select
+                    required
+                    name="menu"
+                    aria-label="Menu escolhido"
+                    value={baseMenu}
+                    onChange={(e) => setBaseMenu(e.target.value)}
+                    className={`w-full bg-stone-800 border border-stone-500 rounded-2xl py-4 px-5 sm:py-5 sm:px-6 focus:outline-none focus:border-amber-500 transition-all appearance-none cursor-pointer ${baseMenu ? 'text-stone-100' : 'text-stone-400'}`}
+                  >
+                    <option value="" disabled>Escolha o menu</option>
+                    <option value="Essencial" className="bg-stone-900">Essencial</option>
+                    <option value="Destaque" className="bg-stone-900">Destaque</option>
+                    <option value="Sem Álcool" className="bg-stone-900">Sem Álcool</option>
+                    <option value="Ainda não decidi" className="bg-stone-900">Ainda não decidi</option>
+                  </select>
+                  <label className="flex items-center gap-3 px-6 py-5 rounded-2xl bg-stone-800 border border-stone-500 text-stone-100 cursor-pointer">
+                    <input type="checkbox" checked={menuSelection.includes('Signature Selection')} onChange={toggleSignature} className="w-5 h-5 accent-amber-500" />
+                    <span>Adicionar Signature Selection</span>
+                  </label>
+                </div>
+
+                <input
+                  required
+                  type="text"
+                  name="location"
+                  aria-label="Cidade do evento"
+                  placeholder="Cidade (ex.: Maringá)"
+                  autoComplete="address-level2"
+                  className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-4 px-5 sm:py-5 sm:px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all placeholder:text-stone-400"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                />
+
+                <div className="space-y-2">
+                  <label htmlFor="data-evento" className="block text-sm text-stone-300 px-2">
+                    Data do seu evento <span className="text-stone-500">(se ainda não souber, escolha uma data aproximada)</span>
+                  </label>
+                  <input
+                    id="data-evento"
+                    type="date"
+                    lang="pt-BR"
+                    name="date"
+                    min={new Date().toISOString().split('T')[0]}
+                    className="w-full bg-stone-800 border border-stone-500 rounded-2xl py-4 px-5 sm:py-5 sm:px-6 text-stone-100 focus:outline-none focus:border-amber-500 transition-all"
+                    value={formData.date}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+
+              <div className="text-center pt-2 pb-1 px-4">
+                <p className="text-xs sm:text-sm text-stone-400 font-light leading-relaxed">
+                  Experiência completa a partir de <span className="font-semibold text-amber-500/90">R$ 1.600</span>. O valor final depende do número de convidados e do menu.
+                </p>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-white hover:bg-amber-500 text-stone-950 py-6 rounded-2xl font-bold text-xl shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
+              >
+                <span>Continuar no WhatsApp</span>
+                <ChevronRight className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
       {/* Rodapé */}
-      <footer className="bg-stone-950/40 border-t border-stone-900 pt-32 pb-16">
+      <footer className="bg-stone-950/40 border-t border-stone-900 pt-16 sm:pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-16 mb-24 text-center md:text-left">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 sm:gap-16 mb-12 sm:mb-24 text-center md:text-left">
             <BALogo className="scale-125" />
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="https://www.instagram.com/baeventosbar/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 px-7 py-4 rounded-2xl bg-stone-900 border border-amber-500/40 text-white font-bold text-sm hover:bg-amber-500 hover:text-stone-950 hover:border-amber-500 transition-all group">
