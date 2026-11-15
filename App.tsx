@@ -352,10 +352,10 @@ const App: React.FC = () => {
 
             <a
               href="#drinks"
-              className="group inline-flex items-center gap-2 pt-2 text-amber-500 hover:text-white text-sm font-bold uppercase tracking-[0.2em] transition-colors"
+              className="group inline-flex items-center gap-3 px-8 py-4 mt-2 rounded-2xl border-2 border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-stone-950 font-bold text-sm uppercase tracking-[0.15em] transition-all shadow-lg shadow-amber-500/10"
             >
               <span>Escolha seu menu</span>
-              <ChevronRight size={16} className="rotate-90 group-hover:translate-y-1 transition-transform" />
+              <ChevronRight size={18} className="rotate-90 group-hover:translate-y-1 transition-transform" />
             </a>
 
             <ul className="flex flex-wrap justify-center gap-3 text-xs text-stone-300">
