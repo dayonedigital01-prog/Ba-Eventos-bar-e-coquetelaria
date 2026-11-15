@@ -350,15 +350,13 @@ const App: React.FC = () => {
               Equipe, estrutura e coquetelaria clássica e moderna, com até 5 horas de atendimento.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-2">
-              <button
-                onClick={scrollToForm}
-                className="group bg-amber-600 hover:bg-amber-700 text-white px-12 py-5 rounded-2xl font-bold text-xl transition-all shadow-2xl shadow-amber-600/30 flex items-center justify-center gap-3"
-              >
-                <span>Fazer Orçamento</span>
-                <ChevronRight className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+            <a
+              href="#drinks"
+              className="group inline-flex items-center gap-2 pt-2 text-amber-500 hover:text-white text-sm font-bold uppercase tracking-[0.2em] transition-colors"
+            >
+              <span>Ver drinks e menus</span>
+              <ChevronRight size={16} className="rotate-90 group-hover:translate-y-1 transition-transform" />
+            </a>
 
             <ul className="flex flex-wrap justify-center gap-3 text-xs text-stone-300">
               <li className="px-4 py-2 rounded-full bg-stone-900/60 border border-stone-800">Até 5 horas de atendimento</li>
