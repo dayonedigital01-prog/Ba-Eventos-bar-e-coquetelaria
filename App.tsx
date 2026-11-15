@@ -354,7 +354,7 @@ const App: React.FC = () => {
               href="#drinks"
               className="group inline-flex items-center gap-2 pt-2 text-amber-500 hover:text-white text-sm font-bold uppercase tracking-[0.2em] transition-colors"
             >
-              <span>Ver drinks e menus</span>
+              <span>Escolha seu menu</span>
               <ChevronRight size={16} className="rotate-90 group-hover:translate-y-1 transition-transform" />
             </a>
 
