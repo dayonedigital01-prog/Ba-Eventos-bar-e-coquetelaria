@@ -104,6 +104,14 @@
         try { sessionStorage.setItem(SENT, '1'); } catch (e) {}
       }
 
+      // Contact: clique no botão de WhatsApp
+      var waBtn = document.getElementById('btn-wa');
+      if (waBtn) {
+        waBtn.addEventListener('click', function () {
+          if (typeof window.fbq === 'function') window.fbq('track', 'Contact');
+        });
+      }
+
       if (lead) {
         var set = function (id, value) { document.getElementById(id).textContent = value || 'a definir'; };
         set('v-nome', lead.name);

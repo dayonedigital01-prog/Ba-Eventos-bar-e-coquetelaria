@@ -231,6 +231,21 @@ const App: React.FC = () => {
   const formRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLImageElement>(null);
 
+  // Pixel: ViewContent quando a seção de menus aparece na tela (uma vez)
+  useEffect(() => {
+    const el = document.getElementById('menus');
+    if (!el || !('IntersectionObserver' in window)) return;
+    const obs = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) {
+        const w = window as unknown as { fbq?: (...a: unknown[]) => void };
+        if (typeof w.fbq === 'function') w.fbq('track', 'ViewContent', { content_name: 'Menus', content_category: 'Orçamento' });
+        obs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   // Foto de fundo que se desloca de cima a baixo conforme a rolagem (sem deixar bordas vazias)
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
